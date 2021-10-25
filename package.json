@@ -1,0 +1,32 @@
+{
+  "name": "html-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "run-s clean build:all",
+    "build:all": "run-p build:img build:html build:js build:css",
+    "build:img": "cpx \"./src/img/**/*\" ./dist/img",
+    "build:html": "cpx \"./src/**/*.html\" ./dist/",
+    "build:js": "run-s tsc minify",
+    "build:css": "run-s scss postcss clean:cache",
+    "clean": "rm -rf dist .cache",
+    "clean:cache": "rm -rf .cache",
+    "tsc": "tsc",
+    "minify": "uglifyjs --compress --mangle --source-map \"content=dist/js/index.js.map\" -o dist/js/index.min.js dist/js/index.js",
+    "scss": "sass --style compressed src/scss:.cache/css",
+    "postcss": "postcss .cache/css/*.css --use autoprefixer --no-map --dir dist/css"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.3.7",
+    "cpx": "^1.5.0",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.3.11",
+    "postcss-cli": "^9.0.1",
+    "sass": "^1.43.3",
+    "typescript": "^4.4.4",
+    "uglify-js": "^3.14.2"
+  }
+}
